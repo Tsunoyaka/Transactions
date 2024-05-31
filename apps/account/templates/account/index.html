@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>цена price</p>
+    <form id="myForm">
+        <input class="code" type="text" id="text" name="text" required>
+        <button class="login__btn" type="submit">отправить</button>
+    </form>
+<script>
+ document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Get the value from the input field
+    const inputValue = document.getElementById('text').value;
+
+    // Create the data object to be sent in the POST request
+    const data = {
+                username: '1ss',
+                email: 'ss@mail.ru',
+                password: 123,
+                password_confirm: 123
+            };
+
+    // Send the POST request using Fetch API
+    fetch('http://127.0.0.1:8000/account/register/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log('Success:', result);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+</script>
+</body>
+
+</html>

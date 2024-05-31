@@ -1,0 +1,14 @@
+wheel
+djangorestframework
+django-filter
+drf-yasg
+djangorestframework-simplejwt
+psycopg2-binary
+Pillow
+python-decouple
+python-slugify
+celery
+redis
+peewee
+django-cors-headers
+django-cleanup
