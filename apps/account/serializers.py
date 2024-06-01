@@ -2,7 +2,6 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from django.conf import settings
-from .tasks import send_activation_code
 
 User = get_user_model()
 
@@ -13,12 +12,6 @@ def email_validator(email):
                 'User with this email does not exist'
             )
         return email
-
-
-class UsersSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('username', 'email')  
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -44,7 +37,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
-        send_activation_code(email='mousakun@gmail.com', activation_code='1234524')
         user.is_active = True
         user.save()
         return user

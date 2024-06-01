@@ -24,12 +24,12 @@ from django.conf.urls.static import static
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Muras API",
+      title="Silk Road API",
       default_version='v1',
-      description="This is Muras API",
+      description="Silk Road API",
       terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="info.muras_travel@gmail.com"),
-      license=openapi.License(name="Muras Travel License"),
+      contact=openapi.Contact(email="info.silk_road@gmail.com"),
+      license=openapi.License(name="Silk Road License"),
    ),
    public=True,
    permission_classes=[permissions.AllowAny],

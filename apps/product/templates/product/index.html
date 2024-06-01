@@ -6,28 +6,25 @@
     <title>Document</title>
 </head>
 <body>
-    <p>цена price</p>
+    <p>hooool {{ price }}  </p>
     <form id="myForm">
         <input class="code" type="text" id="text" name="text" required>
         <button class="login__btn" type="submit">отправить</button>
     </form>
 <script>
- document.getElementById('myForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission
+document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault(); 
 
-    // Get the value from the input field
     const inputValue = document.getElementById('text').value;
+    
+    let form = document.getElementById('myForm');
+    let status = document.createElement('p');
 
-    // Create the data object to be sent in the POST request
     const data = {
-                username: '1ss',
-                email: 'ss@mail.ru',
-                password: 123,
-                password_confirm: 123
-            };
+        code: inputValue
+    };
 
-    // Send the POST request using Fetch API
-    fetch('http://127.0.0.1:8000/account/register/', {
+    fetch('http://127.0.0.1:8000/product/buy/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -37,13 +34,17 @@
     .then(response => response.json())
     .then(result => {
         console.log('Success:', result);
+        status.textContent = 'Оплата прошла';
+        status.style.color = 'green'
+        form.append(status);
     })
     .catch(error => {
         console.error('Error:', error);
+        status.textContent = 'Оплата не прошла';
+        status.style.color = 'red'
+        form.append(status);
     });
 });
-
 </script>
 </body>
-
 </html>

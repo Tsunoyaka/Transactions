@@ -1,19 +1,16 @@
 from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView
 from django.contrib.auth import get_user_model
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.viewsets import ModelViewSet
 
 from .serializers import (
     UserRegistrationSerializer, 
     PasswordChangeSerializer,
     RestorePasswordSerializer,
     SetRestoredPasswordSerializer,
-    UsersSerializer
     )
 
 User = get_user_model()
@@ -49,7 +46,8 @@ class AccountActivationView(APIView):
 
 class ChangePasswordView(APIView):
     permission_classes = [IsAuthenticated]
-
+    
+    @swagger_auto_schema(request_body=PasswordChangeSerializer)
     def post(self, request: Request):
         serializer = PasswordChangeSerializer(data=request.data, context={'request': request})
         if serializer.is_valid(raise_exception=True):
@@ -61,6 +59,8 @@ class ChangePasswordView(APIView):
 
 
 class RestorePasswordView(APIView):
+    
+    @swagger_auto_schema(request_body=RestorePasswordSerializer)
     def post(self, request: Request):
         serializer = RestorePasswordSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -72,6 +72,8 @@ class RestorePasswordView(APIView):
 
 
 class SetRestoredPasswordView(APIView):
+    
+    @swagger_auto_schema(request_body=SetRestoredPasswordSerializer)
     def post(self, request: Request):
         serializer = SetRestoredPasswordSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -81,6 +83,14 @@ class SetRestoredPasswordView(APIView):
                 status=status.HTTP_200_OK
             )
 
+
+class MyKeyView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        key = request.user.key
+        return Response(key)
+        
 
 class DeleteAccountView(APIView):
     permission_classes = [IsAuthenticated]

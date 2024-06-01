@@ -1,5 +1,4 @@
 from django.urls import path
-from rest_framework.routers import DefaultRouter
 from .views import (
     ChangePasswordView, 
     DeleteAccountView, 
@@ -7,6 +6,7 @@ from .views import (
     AccountActivationView, 
     RestorePasswordView, 
     SetRestoredPasswordView,
+    MyKeyView
     )
 
 from rest_framework_simplejwt.views import (
@@ -26,6 +26,7 @@ urlpatterns = [
     path('restore-password/',  RestorePasswordView.as_view(), name='restored_password'),
     path('set-restored-password/', SetRestoredPasswordView.as_view(), name='set_restored_password'),
     path('delete-account/', DeleteAccountView.as_view(), name='delete_account'),
+    path('my-key/', MyKeyView.as_view(), name='my_key'),
 ]
 
 
